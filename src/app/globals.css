@@ -2,25 +2,60 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #484848;
+  --card: #ffffff;
+  --muted: #8a8a8a;
+  --accent: #000000;
+  --accent-strong: #1a1a1a;
+  --line: #e6e6e6;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-poppins), sans-serif;
+  --font-display: var(--font-volkhov), serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-volkhov), serif;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1.5px #484848;
+  color: transparent;
+}
+
+.text-stroke-sm {
+  -webkit-text-stroke: 1px #484848;
+  color: transparent;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
 }
