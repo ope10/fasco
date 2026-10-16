@@ -7,8 +7,10 @@ export const signInSchema = z.object({
 
 export const signUpSchema = z
   .object({
-    name: z.string().min(2, "Please enter your full name."),
+    firstName: z.string().min(1, "Please enter your first name."),
+    lastName: z.string().optional(),
     email: z.string().email("Use a valid email address."),
+    phone: z.string().optional(),
     password: z.string().min(8, "Password must be at least 8 characters."),
     confirmPassword: z.string().min(8, "Confirm your password."),
   })

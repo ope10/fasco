@@ -18,22 +18,23 @@ const dealsItems = [
     tag: "01 — Spring Sale",
     discount: "30% OFF",
     title: "Off-Shoulder Cocktail Dress",
-    image: "/images/figma/deal-1.png",
+    image: "/images/figma/image copy.svg",
   },
   {
     id: "deal-2",
     tag: "02 — Summer Set",
     discount: "40% OFF",
     title: "Two-Piece Ruffled Blue Set",
-    image: "/images/figma/deal-2.png",
+    image: "/images/figma/image (1).svg",
   },
   {
     id: "deal-3",
     tag: "03 — Urban Denim",
     discount: "25% OFF",
     title: "Retro Denim & Sunglasses",
-    image: "/images/figma/deal-3.png",
+    image: "/images/figma/image (2).svg",
   },
+  
 ];
 
 // Categories for New Arrivals filter
@@ -90,7 +91,7 @@ export default function HomePage() {
           {/* Left Column: Model Seated on Wooden Box */}
           <div className="relative aspect-[3/4.2] md:aspect-auto md:h-full min-h-[460px] lg:min-h-[560px] overflow-hidden rounded-[10px] bg-[#eaeaea] flex items-end justify-center">
             <Image
-              src="/images/figma/hero-left.png"
+              src="/images/figma/image 2 28.svg"
               alt="Male model sitting"
               fill
               priority
@@ -104,10 +105,11 @@ export default function HomePage() {
             {/* Top Banner: Women Models */}
             <div className="relative h-[120px] lg:h-[140px] w-full overflow-hidden rounded-[10px] bg-[#eaeaea]">
               <Image
-                src="/images/figma/hero-center-top.png"
+                src="/images/figma/imagess.svg "
                 alt="Women fashion models"
                 fill
                 priority
+                unoptimized={true}
                 className="object-cover transition-transform duration-500 hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 40vw"
               />
@@ -137,10 +139,11 @@ export default function HomePage() {
             {/* Bottom Banner: Girls on Coral */}
             <div className="relative h-[120px] lg:h-[140px] w-full overflow-hidden rounded-[10px] bg-[#f8b4a6]">
               <Image
-                src="/images/figma/hero-center-bottom.png"
+                src="/images/figma/images.svg"
                 alt="Fashion editorial models"
                 fill
                 priority
+                unoptimized={true}
                 className="object-cover transition-transform duration-500 hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 40vw"
               />
@@ -150,11 +153,11 @@ export default function HomePage() {
           {/* Right Column: Model Seated on Stool in Orange Turtleneck */}
           <div className="relative aspect-[3/4.2] md:aspect-auto md:h-full min-h-[460px] lg:min-h-[560px] overflow-hidden rounded-[10px] bg-[#eaeaea] flex items-end justify-center">
             <Image
-              src="/images/figma/hero-right.png"
+              src="/images/figma/image 227.svg"
               alt="Male model on stool in turtleneck"
               fill
               priority
-              className="object-cover object-center transition-transform duration-700 hover:scale-102"
+              className="object-containe object-center transition-transform duration-700 hover:scale-102"
               sizes="(max-width: 768px) 100vw, 30vw"
             />
           </div>

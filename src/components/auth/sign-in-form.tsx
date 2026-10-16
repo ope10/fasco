@@ -22,12 +22,11 @@ function GoogleIcon() {
   );
 }
 
-// Gmail "M" icon
+// Gmail icon
 function GmailIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6z" fill="#fff" stroke="#EA4335" strokeWidth="1.5"/>
-      <path d="M22 6l-10 7L2 6" stroke="#EA4335" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#EA4335"/>
     </svg>
   );
 }
@@ -58,85 +57,87 @@ function SignInFormInner() {
   };
 
   return (
-    <div className="space-y-7">
-      {/* Page title */}
-      <h1 className="text-[1.5rem] font-normal text-[#222222] leading-snug">
+    <div className="w-full">
+      {/* Title */}
+      <h1 className="font-display text-[22px] sm:text-[25px] font-semibold text-[#222222] mb-4 sm:mb-5 leading-snug">
         Sign In To FASCO
       </h1>
 
-      {/* OAuth buttons */}
-      <div className="flex gap-3">
+      {/* OAuth Buttons */}
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-5">
         <button
           type="button"
           onClick={() => handleOAuth("Google")}
-          className="flex flex-1 items-center justify-center gap-2 rounded-[6px] border border-[#cccccc] bg-white py-2.5 text-xs font-medium text-[#333333] transition hover:bg-[#f7f7f7]"
+          className="flex items-center justify-center gap-2 rounded-[8px] border border-[#4285F4] bg-white py-2.5 sm:py-3 px-3 text-xs sm:text-[13px] font-medium text-[#555555] transition hover:bg-[#F5F8FF]"
         >
           <GoogleIcon />
-          Sign up with Google
+          <span>Sign up with Google</span>
         </button>
         <button
           type="button"
           onClick={() => handleOAuth("Email")}
-          className="flex flex-1 items-center justify-center gap-2 rounded-[6px] border border-[#cccccc] bg-white py-2.5 text-xs font-medium text-[#333333] transition hover:bg-[#f7f7f7]"
+          className="flex items-center justify-center gap-2 rounded-[8px] border border-[#4285F4] bg-white py-2.5 sm:py-3 px-3 text-xs sm:text-[13px] font-medium text-[#555555] transition hover:bg-[#F5F8FF]"
         >
           <GmailIcon />
-          Sign up with Email
+          <span>Sign up with Email</span>
         </button>
       </div>
 
-      {/* OR divider */}
-      <div className="flex items-center gap-3 text-xs font-medium text-[#888888]">
-        <span className="h-px flex-1 bg-[#d5d5d5]" />
-        OR
-        <span className="h-px flex-1 bg-[#d5d5d5]" />
+      {/* Short dashes OR divider */}
+      <div className="flex items-center justify-center gap-2.5 my-3 sm:my-4 text-xs font-bold text-[#757575] tracking-widest">
+        <span className="h-[2px] w-6 bg-[#757575]" />
+        <span>OR</span>
+        <span className="h-[2px] w-6 bg-[#757575]" />
       </div>
 
-      {/* Fields */}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        <div className="space-y-1">
-          <label className="block text-[11px] text-[#777777]">Email</label>
+      {/* Inputs & Actions */}
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
+        <div className="space-y-0.5">
           <input
+            type="email"
             {...register("email")}
             placeholder="Email"
-            className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+            className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
           />
           {errors.email && <p className="text-[11px] text-red-500">{errors.email.message}</p>}
         </div>
 
-        <div className="space-y-1">
-          <label className="block text-[11px] text-[#777777]">Password</label>
+        <div className="space-y-0.5">
           <input
             type="password"
             {...register("password")}
             placeholder="Password"
-            className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+            className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
           />
           {errors.password && <p className="text-[11px] text-red-500">{errors.password.message}</p>}
         </div>
 
-        {/* Sign In button */}
-        <button
-          type="submit"
-          className="mt-2 w-full rounded-[6px] bg-[#111111] py-3.5 text-sm font-semibold text-white transition hover:bg-[#333333]"
-        >
-          Sign In
-        </button>
-      </form>
+        {/* Buttons Stack */}
+        <div className="space-y-2.5 pt-2">
+          <button
+            type="submit"
+            className="w-full rounded-[8px] bg-black py-3 sm:py-3.5 text-sm sm:text-[15px] font-medium text-white shadow-[0_12px_24px_rgba(0,0,0,0.2)] transition hover:bg-[#222222]"
+          >
+            Sign In
+          </button>
 
-      {/* Register Now (outline) + Forgot Password */}
-      <div className="space-y-3">
-        <Link
-          href="/sign-up"
-          className="block w-full rounded-[6px] border border-[#3b7de8] py-3 text-center text-xs font-semibold text-[#3b7de8] transition hover:bg-[#f0f5ff]"
-        >
-          Register Now
-        </Link>
-        <div className="text-right">
-          <Link href="/forgot-password" className="text-xs text-[#3b7de8] hover:underline">
-            Forget Password?
+          <Link
+            href="/sign-up"
+            className="block w-full text-center rounded-[8px] border border-[#4285F4] bg-white py-3 sm:py-3.5 text-sm sm:text-[15px] font-medium text-[#4285F4] transition hover:bg-[#F5F8FF]"
+          >
+            Register Now
           </Link>
+
+          <div className="text-right pt-0.5">
+            <Link
+              href="/forgot-password"
+              className="text-xs sm:text-[13px] font-medium text-[#4285F4] hover:underline"
+            >
+              Forget Password?
+            </Link>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

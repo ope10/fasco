@@ -6,10 +6,13 @@ export type SignInFormState = {
 };
 
 export type SignUpFormState = {
-  name: string;
+  firstName: string;
+  lastName?: string;
   email: string;
+  phone?: string;
   password: string;
   confirmPassword: string;
+  name?: string;
 };
 
 export type ForgotPasswordFormState = {

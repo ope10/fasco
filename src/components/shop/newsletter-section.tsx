@@ -23,7 +23,7 @@ export function NewsletterSection() {
           {/* Left Model (as seen in Figma screenshots) */}
           <div className="hidden lg:block relative w-[240px] h-[440px] shrink-0">
             <Image
-              src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80"
+              src="/images/figma/image 2.svg"
               alt="Fashion model in trench coat"
               fill
               className="object-contain object-bottom"
@@ -67,7 +67,7 @@ export function NewsletterSection() {
           {/* Right Model (as seen in Figma screenshots) */}
           <div className="hidden lg:block relative w-[240px] h-[440px] shrink-0">
             <Image
-              src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80"
+              src="/images/figma/image 3.svg"
               alt="Fashion model in overcoat"
               fill
               className="object-contain object-bottom"

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Volkhov } from "next/font/google";
 import "./globals.css";
 import { MiniCart } from "@/components/shop/mini-cart";
+import { WhatsAppFloatingWidget } from "@/components/chat/whatsapp-floating-widget";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="min-h-full bg-white text-[#484848] font-sans">
         {children}
         <MiniCart />
+        <WhatsAppFloatingWidget />
       </body>
     </html>
   );

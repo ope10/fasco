@@ -25,41 +25,45 @@ export function ResetPasswordForm() {
   };
 
   return (
-    <div className="space-y-7">
-      {/* Page heading */}
-      <h1 className="text-[1.5rem] font-normal text-[#222222]">Enter Your New Password</h1>
+    <div className="w-full">
+      {/* Title */}
+      <h1 className="font-display text-[22px] sm:text-[25px] font-semibold text-[#222222] mb-4 sm:mb-5 leading-snug">
+        Enter Your New Password
+      </h1>
 
       {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        <div className="space-y-1">
-          <label className="block text-[11px] text-[#777777]">New Password</label>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
+        <div className="space-y-0.5">
           <input
             type="password"
             {...register("password")}
             placeholder="New Password"
-            className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+            className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
           />
           {errors.password && <p className="text-[11px] text-red-500">{errors.password.message}</p>}
         </div>
 
-        <div className="space-y-1">
-          <label className="block text-[11px] text-[#777777]">Confirmation Password</label>
+        <div className="space-y-0.5">
           <input
             type="password"
             {...register("confirmPassword")}
             placeholder="Confirmation Password"
-            className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+            className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
           />
-          {errors.confirmPassword && <p className="text-[11px] text-red-500">{errors.confirmPassword.message}</p>}
+          {errors.confirmPassword && (
+            <p className="text-[11px] text-red-500">{errors.confirmPassword.message}</p>
+          )}
         </div>
 
-        {/* Submit button — blue as in Figma */}
-        <button
-          type="submit"
-          className="mt-2 w-full rounded-[6px] bg-[#4b7cf3] py-3.5 text-sm font-semibold text-white transition hover:bg-[#3a6be0]"
-        >
-          Submit
-        </button>
+        {/* Submit button */}
+        <div className="pt-2">
+          <button
+            type="submit"
+            className="w-full rounded-[8px] bg-[#4285F4] py-3 sm:py-3.5 text-sm sm:text-[15px] font-medium text-white shadow-[0_12px_24px_rgba(66,133,244,0.25)] transition hover:bg-[#3367D6]"
+          >
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );

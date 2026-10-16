@@ -22,38 +22,41 @@ export function ConfirmationCodeForm() {
   };
 
   return (
-    <div className="space-y-7">
-      {/* Page heading */}
-      <h1 className="text-[1.5rem] font-normal text-[#222222]">Enter The Confirmation Code</h1>
+    <div className="w-full">
+      {/* Title */}
+      <h1 className="font-display text-[22px] sm:text-[25px] font-semibold text-[#222222] mb-4 sm:mb-5 leading-snug">
+        Enter The Confirmation Code
+      </h1>
 
       {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <div className="space-y-1">
-          <label className="block text-[11px] text-[#777777]">Confirmation Code</label>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
+        <div className="space-y-0.5">
           <input
             {...register("code")}
             placeholder="Confirmation Code"
-            className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+            className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
           />
           {errors.code && <p className="text-[11px] text-red-500">{errors.code.message}</p>}
         </div>
 
         {/* Recover Account button */}
-        <button
-          type="submit"
-          className="w-full rounded-[6px] bg-[#111111] py-3.5 text-sm font-semibold text-white transition hover:bg-[#333333]"
-        >
-          Recover Account
-        </button>
-      </form>
+        <div className="pt-2 space-y-2.5">
+          <button
+            type="submit"
+            className="w-full rounded-[8px] bg-black py-3 sm:py-3.5 text-sm sm:text-[15px] font-medium text-white shadow-[0_12px_24px_rgba(0,0,0,0.2)] transition hover:bg-[#222222]"
+          >
+            Recover Account
+          </button>
 
-      {/* Resend link */}
-      <p className="text-center text-xs text-[#555555]">
-        Didn&apos;t receive Confirmation Code?{" "}
-        <button type="button" className="text-[#3b7de8] hover:underline">
-          Resend Now
-        </button>
-      </p>
+          {/* Resend link */}
+          <p className="text-center text-xs sm:text-[13px] text-[#555555]">
+            Didn&apos;t receive Confirmation Code?{" "}
+            <button type="button" className="text-[#4285F4] font-medium hover:underline">
+              Resend Now
+            </button>
+          </p>
+        </div>
+      </form>
     </div>
   );
 }

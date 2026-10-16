@@ -23,8 +23,7 @@ function GoogleIcon() {
 function GmailIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6z" fill="#fff" stroke="#EA4335" strokeWidth="1.5"/>
-      <path d="M22 6l-10 7L2 6" stroke="#EA4335" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#EA4335"/>
     </svg>
   );
 }
@@ -39,11 +38,19 @@ export function SignUpForm() {
     formState: { errors },
   } = useForm<SignUpFormState>({
     resolver: zodResolver(signUpSchema),
-    defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
 
   const onSubmit = (data: SignUpFormState) => {
-    login(data.email, data.name);
+    const displayName = [data.firstName, data.lastName].filter(Boolean).join(" ");
+    login(data.email, displayName);
     router.push("/");
   };
 
@@ -53,119 +60,121 @@ export function SignUpForm() {
   };
 
   return (
-    <div className="space-y-7">
-      {/* Page heading */}
-      <h1 className="text-[1.5rem] font-normal text-[#222222]">Create Account</h1>
+    <div className="w-full">
+      {/* Title */}
+      <h1 className="font-display text-[22px] sm:text-[25px] font-semibold text-[#222222] mb-4 sm:mb-5 leading-snug">
+        Create Account
+      </h1>
 
       {/* OAuth Buttons */}
-      <div className="flex gap-3">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-5">
         <button
           type="button"
           onClick={() => handleOAuth("Google")}
-          className="flex flex-1 items-center justify-center gap-2 rounded-[6px] border border-[#cccccc] bg-white py-2.5 text-xs font-medium text-[#333333] transition hover:bg-[#f7f7f7]"
+          className="flex items-center justify-center gap-2 rounded-[8px] border border-[#4285F4] bg-white py-2.5 sm:py-3 px-3 text-xs sm:text-[13px] font-medium text-[#555555] transition hover:bg-[#F5F8FF]"
         >
           <GoogleIcon />
-          Sign up with Google
+          <span>Sign up with Google</span>
         </button>
         <button
           type="button"
           onClick={() => handleOAuth("Email")}
-          className="flex flex-1 items-center justify-center gap-2 rounded-[6px] border border-[#cccccc] bg-white py-2.5 text-xs font-medium text-[#333333] transition hover:bg-[#f7f7f7]"
+          className="flex items-center justify-center gap-2 rounded-[8px] border border-[#4285F4] bg-white py-2.5 sm:py-3 px-3 text-xs sm:text-[13px] font-medium text-[#555555] transition hover:bg-[#F5F8FF]"
         >
           <GmailIcon />
-          Sign up with Email
+          <span>Sign up with Email</span>
         </button>
       </div>
 
-      {/* OR divider */}
-      <div className="flex items-center gap-3 text-xs font-medium text-[#888888]">
-        <span className="h-px flex-1 bg-[#d5d5d5]" />
-        OR
-        <span className="h-px flex-1 bg-[#d5d5d5]" />
+      {/* Short dashes OR divider */}
+      <div className="flex items-center justify-center gap-2.5 my-3 sm:my-4 text-xs font-bold text-[#757575] tracking-widest">
+        <span className="h-[2px] w-6 bg-[#757575]" />
+        <span>OR</span>
+        <span className="h-[2px] w-6 bg-[#757575]" />
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-3.5 sm:space-y-4">
         {/* Row 1: First Name / Last Name */}
-        <div className="grid grid-cols-2 gap-5">
-          <div className="space-y-1">
-            <label className="block text-[11px] text-[#777777]">First Name</label>
+        <div className="grid grid-cols-2 gap-x-5 sm:gap-x-6 gap-y-1">
+          <div className="space-y-0.5">
             <input
-              {...register("name")}
+              {...register("firstName")}
               placeholder="First Name"
-              className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+              className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
             />
-            {errors.name && <p className="text-[11px] text-red-500">{errors.name.message}</p>}
+            {errors.firstName && <p className="text-[11px] text-red-500">{errors.firstName.message}</p>}
           </div>
-          <div className="space-y-1">
-            <label className="block text-[11px] text-[#777777]">Last Name</label>
+          <div className="space-y-0.5">
             <input
+              {...register("lastName")}
               placeholder="Last Name"
-              className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+              className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
             />
           </div>
         </div>
 
         {/* Row 2: Email / Phone */}
-        <div className="grid grid-cols-2 gap-5">
-          <div className="space-y-1">
-            <label className="block text-[11px] text-[#777777]">Email Address</label>
+        <div className="grid grid-cols-2 gap-x-5 sm:gap-x-6 gap-y-1">
+          <div className="space-y-0.5">
             <input
+              type="email"
               {...register("email")}
               placeholder="Email Address"
-              className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+              className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
             />
             {errors.email && <p className="text-[11px] text-red-500">{errors.email.message}</p>}
           </div>
-          <div className="space-y-1">
-            <label className="block text-[11px] text-[#777777]">Phone Number</label>
+          <div className="space-y-0.5">
             <input
+              {...register("phone")}
               placeholder="Phone Number"
-              className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+              className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
             />
           </div>
         </div>
 
-        {/* Row 3: Password / Confirm */}
-        <div className="grid grid-cols-2 gap-5">
-          <div className="space-y-1">
-            <label className="block text-[11px] text-[#777777]">Password</label>
+        {/* Row 3: Password / Confirm Password */}
+        <div className="grid grid-cols-2 gap-x-5 sm:gap-x-6 gap-y-1">
+          <div className="space-y-0.5">
             <input
               type="password"
               {...register("password")}
               placeholder="Password"
-              className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+              className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
             />
             {errors.password && <p className="text-[11px] text-red-500">{errors.password.message}</p>}
           </div>
-          <div className="space-y-1">
-            <label className="block text-[11px] text-[#777777]">Confirm Password</label>
+          <div className="space-y-0.5">
             <input
               type="password"
               {...register("confirmPassword")}
               placeholder="Confirm Password"
-              className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+              className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
             />
-            {errors.confirmPassword && <p className="text-[11px] text-red-500">{errors.confirmPassword.message}</p>}
+            {errors.confirmPassword && (
+              <p className="text-[11px] text-red-500">{errors.confirmPassword.message}</p>
+            )}
           </div>
         </div>
 
-        {/* Create Account button */}
-        <button
-          type="submit"
-          className="mt-2 w-full rounded-[6px] bg-[#111111] py-3.5 text-sm font-semibold text-white transition hover:bg-[#333333]"
-        >
-          Create Account
-        </button>
-      </form>
+        {/* Submit Button & Switch Link */}
+        <div className="pt-2 space-y-2.5">
+          <button
+            type="submit"
+            className="w-full rounded-[8px] bg-black py-3 sm:py-3.5 text-sm sm:text-[15px] font-medium text-white shadow-[0_12px_24px_rgba(0,0,0,0.2)] transition hover:bg-[#222222]"
+          >
+            Create Account
+          </button>
 
-      {/* Already have an account */}
-      <p className="text-center text-xs text-[#555555]">
-        Already have an account?{" "}
-        <Link href="/sign-in" className="text-[#3b7de8] hover:underline">
-          Login
-        </Link>
-      </p>
+          <p className="text-center text-xs sm:text-[13px] text-[#555555]">
+            Already have an account?{" "}
+            <Link href="/sign-in" className="text-[#4285F4] font-medium hover:underline">
+              Login
+            </Link>
+          </p>
+        </div>
+      </form>
     </div>
   );
 }

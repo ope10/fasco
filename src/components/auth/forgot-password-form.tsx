@@ -25,66 +25,66 @@ export function ForgotPasswordForm() {
   };
 
   return (
-    <div className="space-y-7">
-      {/* Page heading */}
-      <h1 className="text-[1.5rem] font-normal text-[#222222]">Forget Password</h1>
+    <div className="w-full">
+      {/* Title */}
+      <h1 className="font-display text-[22px] sm:text-[25px] font-semibold text-[#222222] mb-4 sm:mb-5 leading-snug">
+        Forget Password
+      </h1>
 
       {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
         {/* Row 1: First Name / Last Name */}
-        <div className="grid grid-cols-2 gap-5">
-          <div className="space-y-1">
-            <label className="block text-[11px] text-[#777777]">First Name</label>
+        <div className="grid grid-cols-2 gap-x-5 sm:gap-x-6 gap-y-1">
+          <div className="space-y-0.5">
             <input
               placeholder="First Name"
-              className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+              className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
             />
           </div>
-          <div className="space-y-1">
-            <label className="block text-[11px] text-[#777777]">Last Name</label>
+          <div className="space-y-0.5">
             <input
               placeholder="Last Name"
-              className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+              className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
             />
           </div>
         </div>
 
         {/* Row 2: Email / Phone */}
-        <div className="grid grid-cols-2 gap-5">
-          <div className="space-y-1">
-            <label className="block text-[11px] text-[#777777]">Email Address</label>
+        <div className="grid grid-cols-2 gap-x-5 sm:gap-x-6 gap-y-1">
+          <div className="space-y-0.5">
             <input
+              type="email"
               {...register("email")}
               placeholder="Email Address"
-              className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+              className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
             />
             {errors.email && <p className="text-[11px] text-red-500">{errors.email.message}</p>}
           </div>
-          <div className="space-y-1">
-            <label className="block text-[11px] text-[#777777]">Phone Number</label>
+          <div className="space-y-0.5">
             <input
               placeholder="Phone Number"
-              className="w-full border-0 border-b border-[#cccccc] bg-transparent pb-2 text-sm text-[#222222] outline-none placeholder:text-[#bbbbbb] focus:border-[#222222]"
+              className="w-full border-0 border-b border-[#D1D5DB] bg-transparent pb-2 pt-1 text-sm sm:text-[15px] text-[#222222] outline-none placeholder:text-[#9E9E9E] placeholder:font-normal focus:border-[#222222] transition-colors"
             />
           </div>
         </div>
 
-        {/* Send Confirmation Code button */}
-        <button
-          type="submit"
-          className="mt-2 w-full rounded-[6px] bg-[#111111] py-3.5 text-sm font-semibold text-white transition hover:bg-[#333333]"
-        >
-          Send Confirmation Code
-        </button>
-      </form>
+        {/* Action Button & Link */}
+        <div className="pt-2 space-y-2.5">
+          <button
+            type="submit"
+            className="w-full rounded-[8px] bg-black py-3 sm:py-3.5 text-sm sm:text-[15px] font-medium text-white shadow-[0_12px_24px_rgba(0,0,0,0.2)] transition hover:bg-[#222222]"
+          >
+            Send Confirmation Code
+          </button>
 
-      {/* Already have account link */}
-      <p className="text-center text-xs text-[#555555]">
-        Already have an account?{" "}
-        <Link href="/sign-in" className="text-[#3b7de8] hover:underline">
-          Login
-        </Link>
-      </p>
+          <p className="text-center text-xs sm:text-[13px] text-[#555555]">
+            Already have an account?{" "}
+            <Link href="/sign-in" className="text-[#4285F4] font-medium hover:underline">
+              Login
+            </Link>
+          </p>
+        </div>
+      </form>
     </div>
   );
 }
