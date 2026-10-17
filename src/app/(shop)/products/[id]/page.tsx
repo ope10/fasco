@@ -120,20 +120,20 @@ export default function ProductDetailPage() {
 
   return (
     <div className="bg-white min-h-screen">
-      <div className="mx-auto max-w-7xl px-6 py-10 md:px-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-10 md:px-10">
         {/* Main Product Showcase matching Figma Screenshot 2 */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 items-start">
-          {/* Images Area: Left Thumbnails + Hero View */}
-          <div className="flex flex-col-reverse sm:flex-row gap-4">
-            {/* Vertical thumbnails */}
-            <div className="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-visible shrink-0 sm:w-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
+          {/* Images Area: Thumbnails + Hero View */}
+          <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4">
+            {/* Thumbnails (horizontal scroll on mobile, vertical stack on tablet/desktop) */}
+            <div className="flex sm:flex-col gap-2.5 sm:gap-3 overflow-x-auto sm:overflow-visible shrink-0 sm:w-20 pb-1 sm:pb-0">
               {product.gallery.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(img)}
-                  className={`relative h-20 w-20 overflow-hidden rounded-[8px] bg-[#f5f5f5] border transition ${
+                  className={`relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 overflow-hidden rounded-[8px] bg-[#f5f5f5] border transition cursor-pointer ${
                     selectedImage === img
-                      ? "border-black shadow-sm"
+                      ? "border-black shadow-sm ring-1 ring-black"
                       : "border-[#e5e5e5] hover:border-[#888888]"
                   }`}
                 >
@@ -148,14 +148,14 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Main Image */}
-            <div className="relative aspect-[3/4] flex-1 overflow-hidden rounded-[12px] bg-[#f5f5f5] min-h-[460px] sm:min-h-[580px]">
+            <div className="relative aspect-[3/4] flex-1 overflow-hidden rounded-[10px] sm:rounded-[12px] bg-[#f5f5f5] min-h-[320px] sm:min-h-[420px] md:min-h-[480px]">
               <Image
                 src={selectedImage}
                 alt={product.name}
                 fill
                 priority
                 className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 55vw"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
           </div>
@@ -285,37 +285,39 @@ export default function ProductDetailPage() {
               <span className="text-xs font-semibold uppercase tracking-wider text-[#444444] block">
                 Quantity
               </span>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <div className="flex w-32 items-center justify-between rounded-[8px] border border-[#e0e0e0] bg-[#fafafa] px-3 py-2.5">
+              <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3">
+                <div className="flex items-center gap-2.5 flex-1">
+                  <div className="flex w-28 sm:w-32 shrink-0 items-center justify-between rounded-[8px] border border-[#e0e0e0] bg-[#fafafa] px-3 py-2.5">
+                    <button
+                      onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                      className="text-[#666666] hover:text-black transition cursor-pointer"
+                      aria-label="Decrease quantity"
+                    >
+                      <Minus size={14} />
+                    </button>
+                    <span className="text-sm font-bold text-[#222222]">
+                      {quantity}
+                    </span>
+                    <button
+                      onClick={() => setQuantity((q) => q + 1)}
+                      className="text-[#666666] hover:text-black transition cursor-pointer"
+                      aria-label="Increase quantity"
+                    >
+                      <Plus size={14} />
+                    </button>
+                  </div>
+
                   <button
-                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                    className="text-[#666666] hover:text-black transition"
-                    aria-label="Decrease quantity"
+                    onClick={handleAddToCart}
+                    className="flex-1 rounded-[8px] border border-black bg-white py-3 sm:py-3.5 px-4 text-xs font-bold uppercase tracking-wider text-black transition hover:bg-black hover:text-white active:scale-98 cursor-pointer text-center"
                   >
-                    <Minus size={14} />
-                  </button>
-                  <span className="text-sm font-bold text-[#222222]">
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={() => setQuantity((q) => q + 1)}
-                    className="text-[#666666] hover:text-black transition"
-                    aria-label="Increase quantity"
-                  >
-                    <Plus size={14} />
+                    Add to cart
                   </button>
                 </div>
 
                 <button
-                  onClick={handleAddToCart}
-                  className="flex-1 rounded-[8px] border border-black bg-white py-3.5 px-6 text-xs font-bold uppercase tracking-wider text-black transition hover:bg-black hover:text-white active:scale-98"
-                >
-                  Add to cart
-                </button>
-
-                <button
                   onClick={handleBuyNow}
-                  className="flex-1 rounded-[8px] bg-black py-3.5 px-6 text-xs font-bold uppercase tracking-wider text-white shadow-md transition hover:bg-neutral-800 active:scale-98"
+                  className="w-full sm:flex-1 rounded-[8px] bg-black py-3 sm:py-3.5 px-6 text-xs font-bold uppercase tracking-wider text-white shadow-md transition hover:bg-neutral-800 active:scale-98 cursor-pointer text-center"
                 >
                   Buy Now
                 </button>

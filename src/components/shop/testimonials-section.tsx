@@ -68,10 +68,10 @@ export function TestimonialsSection() {
 
         {/* 3-card stage with center featured card matching Figma Screenshot */}
         <div className="relative flex items-center justify-center">
-          {/* Left Peeking Card */}
+          {/* Left Peeking Card (Large desktop xl+ only) */}
           <div
             onClick={prev}
-            className="hidden md:flex absolute -left-12 lg:left-4 z-0 w-[380px] lg:w-[440px] scale-90 opacity-40 blur-[0.5px] cursor-pointer transition-all duration-500 hover:opacity-60 items-center gap-5 rounded-[16px] border border-[#e5e5e5] bg-white p-6 shadow-sm"
+            className="hidden xl:flex absolute -left-12 2xl:left-4 z-0 w-[380px] lg:w-[440px] scale-90 opacity-40 blur-[0.5px] cursor-pointer transition-all duration-500 hover:opacity-60 items-center gap-5 rounded-[16px] border border-[#e5e5e5] bg-white p-6 shadow-sm"
           >
             <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-[12px] bg-[#f0f0f0]">
               <Image
@@ -92,10 +92,10 @@ export function TestimonialsSection() {
           </div>
 
           {/* Active Center Card (Elevated & Detailed) */}
-          <div className="relative z-10 w-full max-w-[620px] rounded-[16px] border border-[#f0f0f0] bg-white p-7 sm:p-9 shadow-[0_20px_50px_rgba(0,0,0,0.07)] transition-all duration-500">
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+          <div className="relative z-10 w-full max-w-[620px] rounded-[16px] border border-[#f0f0f0] bg-white p-5 sm:p-7 md:p-9 shadow-[0_20px_50px_rgba(0,0,0,0.07)] transition-all duration-500">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
               {/* Customer Avatar photo */}
-              <div className="relative h-28 w-28 sm:h-36 sm:w-36 shrink-0 overflow-hidden rounded-[12px] bg-[#f2f2f2] shadow-sm">
+              <div className="relative h-24 w-24 sm:h-32 sm:w-32 shrink-0 overflow-hidden rounded-[12px] bg-[#f2f2f2] shadow-sm">
                 <Image
                   src={currentItem.avatar}
                   alt={currentItem.name}
@@ -112,14 +112,14 @@ export function TestimonialsSection() {
                 </p>
 
                 {/* 5 Rating Stars */}
-                <div className="mt-3.5 flex items-center justify-center sm:justify-start gap-1 text-[#FCA120]">
+                <div className="mt-3 sm:mt-3.5 flex items-center justify-center sm:justify-start gap-1 text-[#FCA120]">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} size={15} fill="currentColor" stroke="none" />
                   ))}
                 </div>
 
                 {/* Divider Line */}
-                <div className="my-3.5 h-[1.5px] w-20 bg-[#e0e0e0] mx-auto sm:mx-0" />
+                <div className="my-3 sm:my-3.5 h-[1.5px] w-20 bg-[#e0e0e0] mx-auto sm:mx-0" />
 
                 {/* Author Name & Role */}
                 <div>
@@ -134,10 +134,10 @@ export function TestimonialsSection() {
             </div>
           </div>
 
-          {/* Right Peeking Card */}
+          {/* Right Peeking Card (Large desktop xl+ only) */}
           <div
             onClick={next}
-            className="hidden md:flex absolute -right-12 lg:right-4 z-0 w-[380px] lg:w-[440px] scale-90 opacity-40 blur-[0.5px] cursor-pointer transition-all duration-500 hover:opacity-60 items-center gap-5 rounded-[16px] border border-[#e5e5e5] bg-white p-6 shadow-sm"
+            className="hidden xl:flex absolute -right-12 2xl:right-4 z-0 w-[380px] lg:w-[440px] scale-90 opacity-40 blur-[0.5px] cursor-pointer transition-all duration-500 hover:opacity-60 items-center gap-5 rounded-[16px] border border-[#e5e5e5] bg-white p-6 shadow-sm"
           >
             <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-[12px] bg-[#f0f0f0]">
               <Image

@@ -32,7 +32,7 @@ export interface WhatsAppFloatingWidgetProps {
 }
 
 export function WhatsAppFloatingWidget({
-  phoneNumber = "+1234567890",
+  phoneNumber = "+2348132700703",
   agentName = "FASCO Concierge",
   agentRole = "Online Fashion Stylist",
   initialGreeting = "Hello! 👋 Welcome to FASCO Luxury Fashion.\n\nHow can our styling team help you today? Inquire about sizing, discounts, or your orders!",
@@ -111,18 +111,18 @@ export function WhatsAppFloatingWidget({
 
   const positionClasses =
     position === "bottom-left"
-      ? "left-6 items-start"
-      : "right-6 items-end";
+      ? "left-3 sm:left-6 items-start"
+      : "right-3 sm:right-6 items-end";
 
   return (
     <div
       ref={containerRef}
-      className={`fixed bottom-6 z-50 flex flex-col ${positionClasses} pointer-events-none select-none`}
+      className={`fixed bottom-3 sm:bottom-6 z-50 flex flex-col ${positionClasses} pointer-events-none select-none`}
       aria-label="WhatsApp Chat Support Widget"
     >
       {/* 1. Chat Popup Window (containing the iframe) */}
       <div
-        className={`pointer-events-auto mb-3 transition-all duration-300 ease-out origin-bottom-${
+        className={`pointer-events-auto mb-2.5 sm:mb-3 transition-all duration-300 ease-out origin-bottom-${
           position === "bottom-left" ? "left" : "right"
         } ${
           isOpen
@@ -130,8 +130,8 @@ export function WhatsAppFloatingWidget({
             : "opacity-0 scale-95 translate-y-4 pointer-events-none"
         }`}
         style={{
-          width: "min(380px, calc(100vw - 32px))",
-          height: "min(530px, calc(100vh - 120px))",
+          width: "min(360px, calc(100vw - 24px))",
+          height: "min(520px, calc(100vh - 90px))",
         }}
       >
         <div className="w-full h-full rounded-2xl overflow-hidden shadow-2xl ring-1 ring-black/10 border border-black/5 bg-white flex flex-col">
@@ -176,7 +176,7 @@ export function WhatsAppFloatingWidget({
           onMouseEnter={() => !isOpen && setShowTooltip(true)}
           aria-expanded={isOpen}
           aria-label={isOpen ? "Close WhatsApp chat" : "Open WhatsApp chat"}
-          className={`relative group w-14 h-14 rounded-full flex items-center justify-center text-white shadow-xl cursor-pointer transition-all duration-300 transform active:scale-95 ${
+          className={`relative group w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-white shadow-xl cursor-pointer transition-all duration-300 transform active:scale-95 ${
             isOpen
               ? "bg-[#1E293B] hover:bg-[#0F172A] shadow-black/20"
               : "bg-[#25D366] hover:bg-[#20bd5a] hover:scale-105 shadow-[#25D366]/40"

@@ -26,19 +26,7 @@ type CartState = {
 export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
-      items: [
-        // Seed default item matching Figma screens if empty initially
-        {
-          id: "denim-jacket-Red-M",
-          productId: "denim-jacket",
-          productName: "Denim Jacket",
-          color: "Red",
-          size: "M",
-          price: 14.80,
-          quantity: 1,
-          image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80",
-        },
-      ],
+      items: [],
       isDrawerOpen: false,
       wrapProduct: false,
       openDrawer: () => set({ isDrawerOpen: true }),

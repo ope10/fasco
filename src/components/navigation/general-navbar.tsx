@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, ShoppingBag, User } from "lucide-react";
 import { generalNavItems } from "@/config/navigation";
@@ -8,10 +8,15 @@ import { useCartStore } from "@/store/use-cart-store";
 import { useAuthStore } from "@/store/use-auth-store";
 
 export function GeneralNavbar() {
+  const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const itemCount = useCartStore((state) => state.itemCount());
   const openDrawer = useCartStore((state) => state.openDrawer);
   const { isAuthenticated, user, logout } = useAuthStore();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md transition-all border-b border-[#f5f5f5]">
@@ -25,7 +30,7 @@ export function GeneralNavbar() {
         </Link>
 
         {/* Desktop Nav Items */}
-        <nav className="hidden items-center gap-8 lg:gap-10 text-[15px] text-[#484848] md:flex">
+        <nav className="hidden items-center gap-7 xl:gap-10 text-[15px] text-[#484848] lg:flex">
           {generalNavItems.map((item) => (
             <Link
               key={item.label}
@@ -37,16 +42,16 @@ export function GeneralNavbar() {
           ))}
         </nav>
 
-        {/* Right Actions */}
-        <div className="hidden md:flex items-center gap-4">
+        {/* Right Actions (Desktop lg+) */}
+        <div className="hidden lg:flex items-center gap-4">
           {/* Mini Cart Trigger */}
           <button
             onClick={openDrawer}
-            className="relative p-2 text-[#222222] hover:text-black transition"
+            className="relative p-2 text-[#222222] hover:text-black transition cursor-pointer"
             aria-label="View Cart"
           >
             <ShoppingBag size={20} />
-            {itemCount > 0 && (
+            {mounted && itemCount > 0 && (
               <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#d32f2f] px-1 text-[10px] font-bold text-white shadow-sm">
                 {itemCount}
               </span>
@@ -54,15 +59,18 @@ export function GeneralNavbar() {
           </button>
 
           {/* Auth State */}
-          {isAuthenticated ? (
+          {mounted && isAuthenticated ? (
             <div className="flex items-center gap-3">
-              <span className="flex items-center gap-1.5 text-xs font-semibold text-[#333333] bg-[#f5f5f5] px-3 py-1.5 rounded-full">
+              <Link
+                href="/account"
+                className="flex items-center gap-1.5 text-xs font-semibold text-[#333333] bg-[#f5f5f5] px-3 py-1.5 rounded-full hover:bg-[#ececec] transition"
+              >
                 <User size={13} />
                 {user?.name || "Account"}
-              </span>
+              </Link>
               <button
                 onClick={logout}
-                className="text-xs text-[#888888] hover:text-black transition font-medium"
+                className="text-xs text-[#888888] hover:text-black transition font-medium cursor-pointer"
               >
                 Sign Out
               </button>
@@ -85,15 +93,15 @@ export function GeneralNavbar() {
           )}
         </div>
 
-        {/* Mobile Menu Trigger & Cart */}
-        <div className="flex items-center gap-2 md:hidden">
+        {/* Mobile & Tablet Trigger & Cart (< lg) */}
+        <div className="flex items-center gap-2 lg:hidden">
           <button
             onClick={openDrawer}
-            className="relative p-2 text-[#222222]"
+            className="relative p-2 text-[#222222] hover:text-black transition cursor-pointer"
             aria-label="View Cart"
           >
-            <ShoppingBag size={20} />
-            {itemCount > 0 && (
+            <ShoppingBag size={21} />
+            {mounted && itemCount > 0 && (
               <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#d32f2f] px-1 text-[10px] font-bold text-white">
                 {itemCount}
               </span>
@@ -101,55 +109,63 @@ export function GeneralNavbar() {
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-[#222222]"
+            className="p-2 text-[#222222] hover:text-black transition cursor-pointer rounded-md focus:outline-none"
             aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile & Tablet Drawer (< lg) */}
       {mobileMenuOpen && (
-        <div className="border-t border-[#f0f0f0] bg-white px-6 py-6 md:hidden">
-          <nav className="flex flex-col gap-4 text-base text-[#484848]">
+        <div className="border-t border-[#f0f0f0] bg-white px-6 py-6 lg:hidden shadow-lg animate-in slide-in-from-top-2 duration-200">
+          <nav className="flex flex-col gap-3.5 text-base text-[#484848]">
             {generalNavItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-1 hover:text-black"
+                className="py-1.5 font-medium transition hover:text-black border-b border-[#f9f9f9] last:border-0"
               >
                 {item.label}
               </Link>
             ))}
-            <div className="pt-2 border-t border-[#f0f0f0]">
-              {isAuthenticated ? (
-                <div className="flex items-center justify-between py-2">
-                  <span className="text-sm font-semibold">{user?.name}</span>
+            <div className="pt-3 border-t border-[#f0f0f0]">
+              {mounted && isAuthenticated ? (
+                <div className="flex flex-col gap-3">
+                  <Link
+                    href="/account"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-between py-2 text-sm font-semibold text-[#222222] bg-[#f8f8f8] px-3 rounded-lg"
+                  >
+                    <span className="flex items-center gap-2"><User size={15} />{user?.name}</span>
+                    <span className="text-xs text-[#888888]">View Profile</span>
+                  </Link>
                   <button
                     onClick={() => {
                       logout();
                       setMobileMenuOpen(false);
                     }}
-                    className="text-xs text-red-600 font-semibold"
+                    className="text-xs text-red-600 font-semibold text-left py-1 cursor-pointer"
                   >
                     Sign Out
                   </button>
                 </div>
               ) : (
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
                   <Link
                     href="/sign-in"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full text-center rounded-[8px] border border-black py-2.5 text-xs font-semibold uppercase"
+                    className="flex-1 text-center rounded-[8px] border border-black py-2.5 text-xs font-semibold uppercase tracking-wider text-black hover:bg-black hover:text-white transition"
                   >
                     Sign In
                   </Link>
                   <Link
                     href="/sign-up"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full text-center rounded-[8px] bg-black py-2.5 text-xs font-semibold uppercase text-white"
+                    className="flex-1 text-center rounded-[8px] bg-black py-2.5 text-xs font-semibold uppercase tracking-wider text-white shadow-sm hover:bg-neutral-800 transition"
                   >
                     Sign Up
                   </Link>

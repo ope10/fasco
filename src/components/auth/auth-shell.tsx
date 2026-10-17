@@ -18,8 +18,8 @@ interface AuthShellProps {
  */
 export function AuthShell({ photoSrc, photoAlt, objectPosition = "center 8%", children }: AuthShellProps) {
   return (
-    <div className="h-screen max-h-screen w-full bg-[#f8f9fa] flex items-center justify-center p-2 sm:p-4 md:p-5 lg:p-6 overflow-hidden">
-      <div className="w-full max-w-[1720px] h-full max-h-[calc(100vh-1rem)] sm:max-h-[calc(100vh-2rem)] lg:max-h-[calc(100vh-3rem)] bg-white rounded-[20px] sm:rounded-[28px] border border-[#e5e7eb] shadow-[0_12px_44px_rgba(0,0,0,0.06)] overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+    <div className="min-h-screen lg:h-screen lg:max-h-screen w-full bg-[#f8f9fa] flex items-center justify-center p-3 sm:p-4 md:p-5 lg:p-6 overflow-y-auto lg:overflow-hidden">
+      <div className="w-full max-w-[1720px] min-h-[90vh] lg:min-h-0 lg:h-full lg:max-h-[calc(100vh-3rem)] bg-white rounded-[18px] sm:rounded-[28px] border border-[#e5e7eb] shadow-[0_12px_44px_rgba(0,0,0,0.06)] overflow-hidden grid grid-cols-1 lg:grid-cols-2">
 
         {/* ── LEFT: Fashion photo (50%) ── */}
         <div className="relative hidden lg:block h-full w-full bg-[#f3f4f6] overflow-hidden">

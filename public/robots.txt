@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Disallow private/transactional pages
+Disallow: /checkout
+Disallow: /cart
+Disallow: /account
+Disallow: /order-confirmation
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /confirmation-code
+
+# Sitemap
+Sitemap: https://fasco.com/sitemap.xml

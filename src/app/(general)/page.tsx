@@ -80,32 +80,37 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, []);
 
-  // Filtered products for New Arrivals (takes the 6 products matching Figma)
-  const newArrivals = products.filter((p) => p.id !== "denim-jacket").slice(0, 6);
+  // Filtered products for New Arrivals based on activeCategory
+  const filteredArrivals = products.filter((p) => {
+    if (activeCategory === "All") return true;
+    if (activeCategory === "Discount Deals") return Boolean(p.oldPrice && p.oldPrice > p.price);
+    return p.category.toLowerCase().trim() === activeCategory.toLowerCase().trim();
+  });
+  const displayArrivals = filteredArrivals.length > 0 ? filteredArrivals.slice(0, 6) : products.slice(0, 6);
 
   return (
     <div className="bg-white min-h-screen">
-      {/* 1. HERO SECTION - Iconic 3-Column / 5-Frame Layout */}
-      <section className="mx-auto max-w-7xl px-6 pt-4 pb-12 md:px-10">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.3fr_1fr] items-stretch gap-5 lg:gap-7">
-          {/* Left Column: Model Seated on Wooden Box */}
-          <div className="relative aspect-[3/4.2] md:aspect-auto md:h-full min-h-[460px] lg:min-h-[560px] overflow-hidden rounded-[10px] bg-[#eaeaea] flex items-end justify-center">
+      {/* 1. HERO SECTION - Iconic 3-Column / Mobile Responsive Duo Layout */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 pt-3 sm:pt-4 pb-8 sm:pb-12 md:px-10">
+        <div className="flex flex-col md:grid md:grid-cols-[1fr_1.3fr_1fr] items-stretch gap-4 sm:gap-5 lg:gap-7">
+          {/* Left Column (Desktop & Tablet md+) */}
+          <div className="hidden md:flex relative md:aspect-auto md:h-full min-h-[440px] lg:min-h-[560px] overflow-hidden rounded-[10px] bg-[#eaeaea] items-end justify-center">
             <Image
               src="/images/figma/image 2 28.svg"
               alt="Male model sitting"
               fill
               priority
               className="object-cover object-center transition-transform duration-700 hover:scale-102"
-              sizes="(max-width: 768px) 100vw, 30vw"
+              sizes="(max-width: 1024px) 30vw, 380px"
             />
           </div>
 
           {/* Center Column: Top Banner + SALE Text + Bottom Banner */}
-          <div className="flex flex-col justify-between gap-4 lg:gap-5 min-h-[460px] lg:min-h-[560px]">
+          <div className="flex flex-col justify-between gap-3 sm:gap-4 lg:gap-5 min-h-[380px] sm:min-h-[440px] md:min-h-[460px] lg:min-h-[560px]">
             {/* Top Banner: Women Models */}
-            <div className="relative h-[120px] lg:h-[140px] w-full overflow-hidden rounded-[10px] bg-[#eaeaea]">
+            <div className="relative h-[95px] sm:h-[120px] lg:h-[140px] w-full overflow-hidden rounded-[10px] bg-[#eaeaea]">
               <Image
-                src="/images/figma/imagess.svg "
+                src="/images/figma/imagess.svg"
                 alt="Women fashion models"
                 fill
                 priority
@@ -117,19 +122,19 @@ export default function HomePage() {
 
             {/* Center Content: ULTIMATE SALE */}
             <div className="py-2 text-center flex flex-col items-center justify-center my-auto">
-              <h1 className="font-sans font-bold tracking-tight text-[44px] md:text-[52px] lg:text-[62px] leading-[1.05] text-[#484848]">
+              <h1 className="font-sans font-bold tracking-tight text-[36px] sm:text-[46px] md:text-[44px] lg:text-[62px] leading-[1.05] text-[#484848]">
                 ULTIMATE
               </h1>
-              <div className="font-sans font-black tracking-wider text-[58px] md:text-[70px] lg:text-[84px] leading-[1.0] text-stroke">
+              <div className="font-sans font-black tracking-wider text-[50px] sm:text-[62px] md:text-[58px] lg:text-[84px] leading-[1.0] text-stroke">
                 SALE
               </div>
-              <p className="mt-2.5 text-[11px] md:text-xs font-semibold tracking-[0.25em] text-[#484848] uppercase">
+              <p className="mt-2 text-[10px] sm:text-[11px] md:text-xs font-semibold tracking-[0.22em] text-[#484848] uppercase">
                 NEW COLLECTION
               </p>
-              <div className="mt-4">
+              <div className="mt-3.5 sm:mt-4">
                 <Link
                   href="/shop"
-                  className="inline-block rounded-[10px] bg-black px-9 py-3 text-xs md:text-sm font-semibold uppercase tracking-wider text-white shadow-md transition hover:bg-neutral-800"
+                  className="inline-block rounded-[10px] bg-black px-8 sm:px-9 py-2.5 sm:py-3 text-xs md:text-sm font-semibold uppercase tracking-wider text-white shadow-md transition hover:bg-neutral-800"
                 >
                   SHOP NOW
                 </Link>
@@ -137,7 +142,7 @@ export default function HomePage() {
             </div>
 
             {/* Bottom Banner: Girls on Coral */}
-            <div className="relative h-[120px] lg:h-[140px] w-full overflow-hidden rounded-[10px] bg-[#f8b4a6]">
+            <div className="relative h-[95px] sm:h-[120px] lg:h-[140px] w-full overflow-hidden rounded-[10px] bg-[#f8b4a6]">
               <Image
                 src="/images/figma/images.svg"
                 alt="Fashion editorial models"
@@ -150,38 +155,62 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right Column: Model Seated on Stool in Orange Turtleneck */}
-          <div className="relative aspect-[3/4.2] md:aspect-auto md:h-full min-h-[460px] lg:min-h-[560px] overflow-hidden rounded-[10px] bg-[#eaeaea] flex items-end justify-center">
+          {/* Right Column (Desktop & Tablet md+) */}
+          <div className="hidden md:flex relative md:aspect-auto md:h-full min-h-[440px] lg:min-h-[560px] overflow-hidden rounded-[10px] bg-[#eaeaea] items-end justify-center">
             <Image
               src="/images/figma/image 227.svg"
               alt="Male model on stool in turtleneck"
               fill
               priority
-              className="object-containe object-center transition-transform duration-700 hover:scale-102"
-              sizes="(max-width: 768px) 100vw, 30vw"
+              className="object-contain object-center transition-transform duration-700 hover:scale-102"
+              sizes="(max-width: 1024px) 30vw, 380px"
             />
+          </div>
+
+          {/* Mobile Models Duo: 2-column side-by-side grid below center on mobile */}
+          <div className="grid grid-cols-2 gap-3 md:hidden pt-1">
+            <div className="relative aspect-[3/4.2] overflow-hidden rounded-[10px] bg-[#eaeaea] flex items-end justify-center">
+              <Image
+                src="/images/figma/image 2 28.svg"
+                alt="Male model sitting"
+                fill
+                className="object-cover object-center"
+                sizes="50vw"
+              />
+            </div>
+            <div className="relative aspect-[3/4.2] overflow-hidden rounded-[10px] bg-[#eaeaea] flex items-end justify-center">
+              <Image
+                src="/images/figma/image 227.svg"
+                alt="Male model on stool in turtleneck"
+                fill
+                className="object-contain object-center"
+                sizes="50vw"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       {/* 2. LUXURY BRAND LOGO ROW */}
-      <section className="border-y border-[#f0f0f0] bg-white py-9 md:py-12">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-8 px-6 md:px-12">
-          <span className="font-sans text-xl md:text-2xl font-black tracking-[0.22em] text-[#222222]">
-            CHANEL
-          </span>
-          <span className="font-serif text-lg md:text-xl font-bold tracking-[0.18em] text-[#222222]">
-            LOUIS VUITTON
-          </span>
-          <span className="font-serif text-xl md:text-2xl font-black tracking-[0.2em] text-[#222222]">
-            PRADA
-          </span>
-          <span className="font-sans text-lg md:text-xl font-light tracking-[0.16em] text-[#222222]">
-            Calvin Klein
-          </span>
-          <span className="font-mono text-xl md:text-2xl font-black tracking-[0.25em] text-[#222222]">
-            DENIM
-          </span>
+      <section className="border-y border-[#f0f0f0] bg-white py-6 sm:py-8 md:py-12">
+        <div className="mx-auto max-w-7xl px-6 md:px-12">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 items-center justify-items-center gap-6 sm:gap-8 text-center">
+            <span className="font-sans text-lg sm:text-xl md:text-2xl font-black tracking-[0.2em] text-[#222222]">
+              CHANEL
+            </span>
+            <span className="font-serif text-base sm:text-lg md:text-xl font-bold tracking-[0.16em] text-[#222222]">
+              LOUIS VUITTON
+            </span>
+            <span className="font-serif text-lg sm:text-xl md:text-2xl font-black tracking-[0.18em] text-[#222222]">
+              PRADA
+            </span>
+            <span className="font-sans text-base sm:text-lg md:text-xl font-light tracking-[0.15em] text-[#222222]">
+              Calvin Klein
+            </span>
+            <span className="col-span-2 sm:col-span-1 font-mono text-lg sm:text-xl md:text-2xl font-black tracking-[0.22em] text-[#222222]">
+              DENIM
+            </span>
+          </div>
         </div>
       </section>
 
@@ -310,9 +339,9 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Product Cards Grid: 6 products matching Figma Screenshot */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {newArrivals.map((product) => (
+        {/* Product Cards Grid: 2 columns on mobile, 2 on small tablet, 3 on tablet/desktop */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6">
+          {displayArrivals.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

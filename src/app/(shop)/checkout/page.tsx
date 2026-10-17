@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,17 +11,17 @@ import { NewsletterSection } from "@/components/shop/newsletter-section";
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const { items, subtotal } = useCartStore();
   const { isAuthenticated, user } = useAuthStore();
 
   const [discountCode, setDiscountCode] = useState("");
   const [discountApplied, setDiscountApplied] = useState(false);
-  const [orderComplete, setOrderComplete] = useState(false);
 
   // Form states
-  const [email, setEmail] = useState(user?.email || "");
-  const [firstName, setFirstName] = useState(user?.name?.split(" ")[0] || "");
-  const [lastName, setLastName] = useState(user?.name?.split(" ")[1] || "");
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [postalCode, setPostalCode] = useState("");
@@ -30,10 +30,29 @@ export default function CheckoutPage() {
   const [securityCode, setSecurityCode] = useState("");
   const [cardHolder, setCardHolder] = useState("");
 
+  useEffect(() => {
+    setMounted(true);
+    if (user) {
+      if (user.email) setEmail(user.email);
+      if (user.name) {
+        setFirstName(user.name.split(" ")[0] || "");
+        setLastName(user.name.split(" ")[1] || "");
+      }
+    }
+  }, [user]);
+
   const rawSubtotal = subtotal() > 0 ? subtotal() : 100.0;
-  const shippingCost = 40.0;
+  const shippingCost = 0.0; // Free shipping
   const discountAmount = discountApplied ? 15.0 : 0.0;
   const totalCost = Math.max(0, rawSubtotal + shippingCost - discountAmount);
+
+  if (!mounted) {
+    return (
+      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 min-h-[60vh] flex items-center justify-center bg-white">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#ececec] border-t-black" />
+      </div>
+    );
+  }
 
   // Default display items if cart is empty for testing
   const checkoutItems =
@@ -56,12 +75,12 @@ export default function CheckoutPage() {
   const handlePayNow = (e: React.FormEvent) => {
     e.preventDefault();
     if (!isAuthenticated) {
-      alert("Login To FASCO in order to Proceed to buying products.");
       router.push("/sign-in?redirect=/checkout&notice=login-required");
       return;
     }
 
-    setOrderComplete(true);
+    const orderNumber = "ORD-" + Math.floor(10000 + Math.random() * 90000);
+    router.push(`/order-confirmation?order=${orderNumber}`);
   };
 
   const handleApplyDiscount = () => {
@@ -98,26 +117,7 @@ export default function CheckoutPage() {
           </div>
         )}
 
-        {orderComplete ? (
-          <div className="rounded-[16px] bg-emerald-50 border border-emerald-200 p-12 text-center space-y-4 max-w-xl mx-auto my-12">
-            <h2 className="font-display text-3xl font-bold text-emerald-900">
-              Payment Successful!
-            </h2>
-            <p className="text-sm text-emerald-800">
-              Thank you for shopping with FASCO. Your order confirmation has been sent to{" "}
-              <strong>{email || user?.email || "your email"}</strong>.
-            </p>
-            <div className="pt-4">
-              <Link
-                href="/"
-                className="inline-block rounded-[8px] bg-black px-8 py-3 text-xs font-semibold uppercase text-white shadow-md hover:bg-neutral-800"
-              >
-                Back To Home
-              </Link>
-            </div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-12 items-start">
             {/* Left Column: Form Fields matching Figma Screenshot 5 */}
             <form onSubmit={handlePayNow} className="space-y-10">
               {/* 1. Contact Section */}
@@ -267,7 +267,7 @@ export default function CheckoutPage() {
                       required
                       value={expDate}
                       onChange={(e) => setExpDate(e.target.value)}
-                      placeholder="Expiration Date (MM/YY)"
+                      placeholder="MM / YY"
                       className="w-full rounded-[6px] border border-[#d8d8d8] px-4 py-3 text-xs sm:text-sm text-[#222222] outline-none transition focus:border-black placeholder:text-[#999999]"
                     />
                     <input
@@ -275,7 +275,7 @@ export default function CheckoutPage() {
                       required
                       value={securityCode}
                       onChange={(e) => setSecurityCode(e.target.value)}
-                      placeholder="Security Code"
+                      placeholder="CVC / CVV"
                       className="w-full rounded-[6px] border border-[#d8d8d8] px-4 py-3 text-xs sm:text-sm text-[#222222] outline-none transition focus:border-black placeholder:text-[#999999]"
                     />
                   </div>
@@ -312,7 +312,7 @@ export default function CheckoutPage() {
 
               <div className="text-center pt-2">
                 <p className="text-[11px] text-[#888888]">
-                  Copyright © 2022 FASCO . All Rights Reserved.
+                  Copyright © 2026 FASCO. All Rights Reserved.
                 </p>
               </div>
             </form>
@@ -377,7 +377,7 @@ export default function CheckoutPage() {
 
                 <div className="flex items-center justify-between">
                   <span>Shipping</span>
-                  <span className="font-medium text-[#222222]">${shippingCost.toFixed(2)}</span>
+                  <span className="font-medium text-emerald-600">Free</span>
                 </div>
 
                 {discountApplied && (
@@ -394,7 +394,6 @@ export default function CheckoutPage() {
               </div>
             </aside>
           </div>
-        )}
       </div>
 
       {/* Subscribe To Our Newsletter */}

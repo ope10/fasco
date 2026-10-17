@@ -24,17 +24,17 @@ export const pagesDropdown: NavItem[] = [
 ];
 
 export const footerColumns: FooterColumn[] = [
-  {
-    title: "Support",
-    links: [
-      { label: "Support Center", href: "/" },
-      { label: "Invoicing", href: "/" },
-      { label: "Contract", href: "/" },
-      { label: "Careers", href: "/" },
-      { label: "Blog", href: "/" },
-      { label: "FAQ,s", href: "/" },
-    ],
-  },
+  // {
+  //   title: "Support",
+  //   links: [
+  //     { label: "Support Center", href: "/" },
+  //     { label: "Invoicing", href: "/" },
+  //     { label: "Contract", href: "/" },
+  //     { label: "Careers", href: "/" },
+  //     { label: "Blog", href: "/" },
+  //     { label: "FAQ,s", href: "/" },
+  //   ],
+  // },
   {
     title: "Legal",
     links: [
